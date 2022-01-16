@@ -65,6 +65,10 @@ print('Задание 3. Посчитайте изменение случаев 
 
 w = Window().orderBy('date_')
 df3 = df.select(F.to_date('date').alias('date_'), 'new_cases').where(df.location == 'Russia')
-df3.withColumn('yesterday_cases', F.lag('new_cases').over(w)).withColumn('delta', F.col('new_cases') - F.col('yesterday_cases')).where((F.col('date_') >= '2021-03-25') & (F.col('date_') <= '2021-03-31')).show()
+
+(df3
+.withColumn('yesterday_cases', F.lag('new_cases').over(w))
+.withColumn('delta', F.col('new_cases') - F.col('yesterday_cases'))
+.where((F.col('date_') >= '2021-03-25') & (F.col('date_') <= '2021-03-31')).show())
 
 
